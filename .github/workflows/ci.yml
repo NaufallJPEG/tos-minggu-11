@@ -1,6 +1,9 @@
-name: CI Pipeline
+name: CI
 
-on: [push, pull_request]
+on:
+  push:
+    branches: [main]
+  pull_request:
 
 jobs:
   test:
@@ -8,6 +11,10 @@ jobs:
     steps:
       - name: Ambil kode
         uses: actions/checkout@v6
+      - name: Pasang Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
       - name: Pasang pytest
         run: pip install pytest
       - name: Jalankan tes
@@ -23,19 +30,3 @@ jobs:
         run: docker build -t kalkulator:ci .
       - name: Uji jalankan image
         run: docker run --rm kalkulator:ci
- 
-on:
-  push:
-    branches: [main]
-  pull_request:
- 
-jobs:
-  test:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Ambil kode
-        uses: actions/checkout@v6
-      - name: Pasang Python
-        uses: actions/setup-python@v6
-        with:
-          python-version: "3.12"
