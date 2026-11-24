@@ -14,3 +14,8 @@ jobs:
         run: cp .env.example .env
       - name: Validasi file compose
         run: docker compose config -q
+      - name: Uji jalankan stack
+        run: |
+          docker compose up -d
+          docker compose ps
+          docker compose down -v
